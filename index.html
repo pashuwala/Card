@@ -1322,20 +1322,27 @@
       }
 
       function handleCardClick(e) {
-        if (e.target.closest('a') || (e.target.closest('.detail-card') && window.getSelection().toString())) {
-          return;
-        }
-        
-        isFlipped = !isFlipped;
-        flipBaseY = isFlipped ? 180 : 0;
-        
-        card.style.transition = 'transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        setTimeout(() => {
-          card.style.transition = 'transform 0.1s ease-out';
-        }, 700);
-        
-        startAnimation();
-      }
+  if (e.target.closest('a') || (e.target.closest('.detail-card') && window.getSelection().toString())) {
+    return;
+  }
+  
+  // Reset mouse tilt targets immediately so they don't fight the flip logic
+  targetRotateX = 0;
+  targetRotateY = 0;
+  currentRotateX = 0;
+  currentRotateY = 0;
+
+  isFlipped = !isFlipped;
+  flipBaseY = isFlipped ? 180 : 0;
+  
+  card.style.transition = 'transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+  setTimeout(() => {
+    card.style.transition = 'transform 0.1s ease-out';
+  }, 600);
+  
+  startAnimation();
+}
+
 
       function handleKeyPress(e) {
         if ((e.key === 'f' || e.key === 'F') && !e.ctrlKey && !e.metaKey) {
