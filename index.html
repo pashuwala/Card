@@ -232,18 +232,24 @@
     }
 
     .card-face {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 32px;
-      backface-visibility: hidden;
-      background: linear-gradient(135deg, #0f1419 0%, #1a2332 40%, #141a24 100%);
-      border: 1px solid var(--glass-border);
-      overflow: hidden;
-      transform-style: preserve-3d; /* Allows translateZ to function perfectly on internal structures */
-    }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  background: linear-gradient(135deg, #0f1419 0%, #1a2332 40%, #141a24 100%);
+  border: 1px solid var(--glass-border);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  
+  /* CRITICAL FIXES FOR PERMANENT BLUR */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+  transform: translateZ(0); /* Forces 3D rendering context to stay sharp */
+}
+
 
     /* Anti-Blur Layer Push (Forces text out of the background rasterization pane) */
 .front-header, 
